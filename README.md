@@ -21,7 +21,7 @@ The only thing changed is the execp_command set to pavolume and the click comman
 #------------------------------------
 # E = EXECP
 execp = new
-execp_centered = 0
+execp_centered = 1
 execp_has_icon = 0
 execp_command = pavolume
 #execp_interval = 0
@@ -33,7 +33,7 @@ execp_padding = 0 0 0
 # disable this tooltip to get update info
 execp_tooltip = volume
 #execp_background_id = 0
-execp_padding = 10 0 10
+execp_padding = 2 0 2
 execp_mclick_command = pactl set-sink-mute @DEFAULT_SINK@ toggle
 execp_rclick_command = pactl set-sink-volume @DEFAULT_SINK@ +5000
 execp_lclick_command = pactl set-sink-volume @DEFAULT_SINK@ -5000
