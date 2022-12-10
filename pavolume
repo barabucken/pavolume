@@ -1,11 +1,12 @@
 #!/bin/bash
 
-volume=$(pactl get-sink-volume @DEFAULT_SINK@ | cut -d" " -f6)
+volume=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
 echo $volume
 
-function pavol() { pactl subscribe | grep "'ändra' på mottagare #4$"; }
+# Edit what you grep for, unless you're running Swedish
+function pavol() { pactl subscribe | grep "'ändra' på mottagare"; }
 export -f pavol
-#pavol
+
 
 (stdbuf -oL bash -c 'pavol') |
 while read
@@ -14,6 +15,7 @@ do
 volume=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{ print $5}')
 mute=$(pactl get-sink-mute @DEFAULT_SINK@ | cut -d" " -f2)
 
+# Change "ja" to "yes" if you're running English, I guess?
 if [ "$mute" = "ja" ]; then
         echo "  M   "
 elif [ "${#volume}" -lt 3 ]; then
