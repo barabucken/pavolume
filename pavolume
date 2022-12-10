@@ -1,0 +1,24 @@
+#!/bin/bash
+
+volume=$(pactl get-sink-volume @DEFAULT_SINK@ | cut -d" " -f6)
+echo $volume
+
+function pavol() { pactl subscribe | grep "'ändra' på mottagare #4$"; }
+export -f pavol
+#pavol
+
+(stdbuf -oL bash -c 'pavol') |
+while read
+do
+
+volume=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{ print $5}')
+mute=$(pactl get-sink-mute @DEFAULT_SINK@ | cut -d" " -f2)
+
+if [ "$mute" = "ja" ]; then
+        echo "  M   "
+elif [ "${#volume}" -lt 3 ]; then
+	echo 0$volume
+else
+	echo $volume
+fi
+done
